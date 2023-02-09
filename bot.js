@@ -1,16 +1,14 @@
 require("dotenv").config();
 const { ButtonBuilder, ButtonStyle, MessageActionRow, ActionRowBuilder, Events, ModalBuilder, TextInputBuilder, TextInputStyle, Client, EmbedBuilder, Intents, Collection, GatewayIntentBits, Partials, MessageAttachment, MessageEmbed, Permissions, Constants, ApplicationCommandPermissionsManager } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages], partials: [Partials.Channel] });
-const db = require("nrc.db");
 const message = require("./events/message");
-let prefix = ayarlar.prefix;
 
 
 client.commands = new Collection();
 client.aliases = new Collection();
 
 ["command"].forEach(handler => {
-  require(`./komutcalistirici`)(client);
+  require(`./commandstarter`)(client);
 });
 
 client.on("ready", () => {
@@ -20,10 +18,6 @@ client.on("ready", () => {
 client.on(`interactionCreate`, (interaction) => {
 
   if (interaction.customId == "adres-paylas") {
-
-
-    let sunucular = db.fetch("izinli_sunucular");
-    if(!sunucular.includes(interaction.guild.id)) return interaction.reply({content: "Bu Sunucuda kullanım izni bulunmamaktadır."})
 
 
     const modal = new ModalBuilder()
@@ -63,20 +57,11 @@ client.on(`interactionCreate`, (interaction) => {
     interaction.showModal(modal);
   }
 
- 
-
 })
 
 client.on(Events.InteractionCreate, interaction => {
   if (!interaction.isModalSubmit()) return;
   if (interaction.customId == "adres-paylasim-modal") {
-
-
-    if(db.get("izinli_sunucular").includes(interaction.guild.id)){
-      interaction.reply({ content: 'Bu sunucuda paylaşım yapma izni bulunmamaktadır.', ephemeral: true });
-      return;
-    }
-
 
     const isim_soyisim = interaction.fields.getTextInputValue('deprem-isim-soyisim');
     const numara = interaction.fields.getTextInputValue('deprem-numara');
@@ -96,7 +81,6 @@ client.on(Events.InteractionCreate, interaction => {
       return;
     }
 
-    db.set("adres-paylasim-onaybekleyen-" + timestamp, [isim_soyisim ? isim_soyisim : "bos",numara ? numara : "bos",adres , interaction.user.id])
 
     // APİYE BİLGİLERİ BURADAN GÖNDEREBİLİRSİNİZ
 
@@ -120,7 +104,7 @@ client.on(Events.InteractionCreate, interaction => {
 
     const menu = new EmbedBuilder()
       .setColor(0x0099FF)
-      .setAuthor({ name: 'Adres Paylaş Yönet', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.gg/sckmSsqqEa' })
+      .setAuthor({ name: 'Adres Paylaş Yönet', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.gg/itdepremyardim' })
       .setDescription(`
       
       İsim Soyisim: **${isim_soyisim ? isim_soyisim : "Değer Boş"}**
