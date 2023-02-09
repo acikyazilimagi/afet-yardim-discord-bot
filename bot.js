@@ -1,9 +1,10 @@
+require("dotenv").config();
 const { ButtonBuilder, ButtonStyle, MessageActionRow, ActionRowBuilder, Events, ModalBuilder, TextInputBuilder, TextInputStyle, Client, EmbedBuilder, Intents, Collection, GatewayIntentBits, Partials, MessageAttachment, MessageEmbed, Permissions, Constants, ApplicationCommandPermissionsManager } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages], partials: [Partials.Channel] });
-const ayarlar = require("./ayarlar.json");
 const db = require("nrc.db");
 const message = require("./events/message");
 let prefix = ayarlar.prefix;
+
 
 client.commands = new Collection();
 client.aliases = new Collection();
@@ -71,7 +72,7 @@ client.on(Events.InteractionCreate, interaction => {
   if (interaction.customId == "adres-paylasim-modal") {
 
 
-    if(ayarlar.onayli_sunucular.includes(interaction.guild.id)){
+    if(db.get("izinli_sunucular").includes(interaction.guild.id)){
       interaction.reply({ content: 'Bu sunucuda paylaşım yapma izni bulunmamaktadır.', ephemeral: true });
       return;
     }
@@ -137,4 +138,4 @@ client.on(Events.InteractionCreate, interaction => {
 });
 
 
-client.login(ayarlar.token);
+client.login(process.env.TOKEN);
