@@ -1,7 +1,4 @@
-const db = require("nrc.db");
-
 module.exports = async(client) => {
-
   
   client.user.setStatus("online");
   const aktiviteler = [
@@ -15,18 +12,11 @@ module.exports = async(client) => {
 
     client.user.setActivity(aktiviteler[random], "");
   }, 2 * 2500);
-
-
-
-
-  
   
   console.log("Ayarlamalar: Durum Ayarlandı!")
   console.log("Ayarlamalar: Aktivite Ayarlandı!")
   
   console.log(" ")
-
-
 
   const kulsayi = []
   client.guilds.cache.forEach((item, i) => {
@@ -49,7 +39,7 @@ module.exports = async(client) => {
 
   console.log(" ")
 
-  console.log(`${client.user.tag} olarak Discord'a giriş yaptım. Artık kullanmaya hazırım!\nNarcos Code İyi Kullanımlar Diler...`);
+  console.log(`${client.user.tag} olarak Discord'a giriş yaptım. Artık kullanmaya hazırım`);
 
 
 }
