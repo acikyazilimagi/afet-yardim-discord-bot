@@ -1,27 +1,17 @@
 {
-  "name": "mustafamert",
+  "name": "afet-yardim-discord-bot",
   "version": "3.0.0",
-  "description": "Narcos Code Altyapısıdır",
+  "description": "",
   "main": "bot.js",
   "scripts": {
     "test": "node bot.js"
   },
-  "author": "MustafaMert",
-  "license": "MIT",
+  "author": "acikkaynak",
+  "license": "Apace",
   "dependencies": {
     "ascii-table": "^0.0.9",
-    "axios": "^0.26.0",
-    "cheerio": "^1.0.0-rc.12",
-    "discord-modal": "^1.0.3",
-    "discord-modals": "^1.2.4",
+    "axios": "^1.3.2",
     "discord.js": "^14.1.1",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "jimp": "^0.16.1",
-    "nrc.db": "^2.1.0",
-    "request": "^2.88.2"
-  },
-  "devDependencies": {
-    "discord-api-types": "^0.23.1"
+    "dotenv": "^16.0.0"
   }
 }
