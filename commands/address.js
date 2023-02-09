@@ -1,13 +1,7 @@
 const {Discord,ButtonBuilder,EmbedBuilder,ButtonStyle,ActionRowBuilder,MessageActionRow} = require("discord.js");
-const ayarlar = require("../ayarlar.json");
 
 module.exports = {
-    calistir: async(client, message, args) => {
-
-        let sunucular = db.fetch("izinli_sunucular");
-        if(!sunucular.includes(interaction.guild.id)) return interaction.reply({content: "Bu Sunucuda kullanım izni bulunmamaktadır."})
-        
-
+    start : async(client, message, args) => {
 		const row = new ActionRowBuilder()
 			.addComponents(
 				new ButtonBuilder()
@@ -18,8 +12,8 @@ module.exports = {
 		const menu =  new EmbedBuilder()
         .setColor(0x0099FF)
         .setTitle('Adres Paylaşım')
-        .setURL('https://discord.gg/sckmSsqqEa')
-        .setAuthor({ name: 'Adres Paylaş', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.gg/sckmSsqqEa' })
+        .setURL('https://discord.gg/itdepremyardim')
+        .setAuthor({ name: 'Adres Paylaş', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.gg/itdepremyardim' })
         .setDescription('Adres Paylaşmak için Butona tıkla')
 
 
