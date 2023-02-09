@@ -1,8 +1,11 @@
 require("dotenv").config();
-const { ButtonBuilder, ButtonStyle, MessageActionRow, ActionRowBuilder, Events, ModalBuilder, TextInputBuilder, TextInputStyle, Client, EmbedBuilder, Intents, Collection, GatewayIntentBits, Partials, MessageAttachment, MessageEmbed, Permissions, Constants, ApplicationCommandPermissionsManager } = require('discord.js');
+const { ButtonBuilder, ButtonStyle, MessageActionRow, ActionRowBuilder, Events, ModalBuilder, TextInputBuilder, TextInputStyle, Client, EmbedBuilder, Intents, Collection, GatewayIntentBits, Partials, MessageAttachment, MessageEmbed, Permissions, Constants, ApplicationCommandPermissionsManager, time } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages], partials: [Partials.Channel] });
 const message = require("./events/message");
 
+
+channel_name = "deprem-yardim-log" //keyword
+let timeouts = []
 
 client.commands = new Collection();
 client.aliases = new Collection();
@@ -27,6 +30,8 @@ client.on(`interactionCreate`, (interaction) => {
   }
 
   if (interaction.customId == "adres-paylas") {
+    
+
 
 
     const modal = new ModalBuilder()
@@ -67,7 +72,21 @@ client.on(Events.InteractionCreate, interaction => {
     // APİYE BİLGİLERİ BURADAN GÖNDEREBİLİRSİNİZ
 
 
-    interaction.reply({ content: 'Adres Paylaşım talebiniz alınmıştır yetkililerimiz en kısa sürede doğruluğunu kontrol edecektir', ephemeral: true });
+    if(timeouts.find(element => element[0] == interaction.user.id) && !timeouts.find(element => element[1].timeoutEnded)) {
+      return interaction.reply({ content: 'Geçiçi olarak engellendiniz', ephemeral: true })
+    }
+
+    else {
+      interaction.reply({ content: 'Adres Paylaşım talebiniz alınmıştır yetkililerimiz en kısa sürede doğruluğunu kontrol edecektir', ephemeral: true });
+      try {
+        timeouts = timeouts.filter(element => element[0] != interaction.user.id)
+      }catch {
+        
+      }
+
+    }
+    
+    
 
     const row = new ActionRowBuilder()
     .addComponents(
@@ -97,7 +116,55 @@ client.on(Events.InteractionCreate, interaction => {
       Paylaşımın yapıldığı sunucu adı: **${interaction.guild.name}**
 
       `)
-    client.channels.cache.get("1073297814865575977").send({ embeds: [menu], components: [row] });
+      
+      
+      
+      
+    let user_id = interaction.user.id //getting user id that filled form
+      
+    const guild_id = interaction.guildId; // guild id
+    const server = client.guilds.cache.get(guild_id); //getting guild
+
+
+    const server_channel = server.channels.cache.find(c => c.name == channel_name); // getting server_channel
+    
+    client.channels.cache.get(server_channel.id).send({ embeds: [menu], components: [row] }); // sending message to server_channel
+
+
+    //ban and timeout buttons interactions
+    
+    const filter = i => i.customId.startsWith(`paylasimci-engelle`) || i.customId.startsWith(`paylasimci-banla`) 
+  
+    const collector = server_channel.createMessageComponentCollector({ filter, time: 864000000 });
+
+    collector.once('collect', async i => {
+
+      if (i.customId.startsWith('paylasimci-engelle-')) {
+        //await i.reply(`interaction: ${user_id}, buton: ${i.user.id}`)
+        await i.reply("User has been timeouted for 10 minutes")
+
+        const Timeout = {
+          timeoutEnded: false,
+          timeout: null,
+        };
+
+        Timeout.timeout = setTimeout(() => {
+          Timeout.timeoutEnded = true;
+        }, 30*1000);
+        timeouts.push([user_id,Timeout]) 
+        
+      }
+      if ((i.customId.startsWith('paylasimci-banla-'))) {
+        let member = await server_channel.guild.members.fetch(user_id);
+        member.ban({ reason: 'Banned' });
+        await i.reply(`User with id ${user_id} has been banned.`)
+        
+      }
+
+
+    })
+    
+
   }
 });
 
