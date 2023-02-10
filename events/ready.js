@@ -2,7 +2,7 @@ module.exports = async(client) => {
   
   client.user.setStatus("online");
   const aktiviteler = [
-    "Deprem Bilgi Botu",
+    "Deprem Bilgi Paylaşım Botu",
     "Lütfen sahte bilgi girişi yapmayınız.",
     "d!yardım"
 
@@ -34,12 +34,10 @@ module.exports = async(client) => {
   console.log("Bot İstatistiği")
   console.log(`Sunucu Sayısı: ${client.guilds.cache.size}`)
   console.log(`Kullanıcı Sayısı: ${toplamkulsayi}`)
-  console.log(`Emoji Sayısı: ${client.emojis.cache.size}`)
   console.log(`Kanal Sayısı: ${client.channels.cache.size}`)
-
   console.log(" ")
 
-  console.log(`${client.user.tag} olarak Discord'a giriş yaptım. Artık kullanmaya hazırım`);
+  console.log(`${client.user.tag} olarak Discord'a giriş yaptım. Artık kullanılmaya hazırım`);
 
 
 }

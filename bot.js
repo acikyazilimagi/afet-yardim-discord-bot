@@ -31,9 +31,6 @@ client.on(`interactionCreate`, (interaction) => {
 
   if (interaction.customId == "adres-paylas") {
     
-
-
-
     const modal = new ModalBuilder()
       .setCustomId('adres-paylasim-modal')
       .setTitle('Deprem Adres Paylaş');
@@ -41,7 +38,7 @@ client.on(`interactionCreate`, (interaction) => {
     const adresbilgi = new TextInputBuilder()
 			.setCustomId('deprem-adresi')
 			.setLabel('Adres Bilgisi')
-			.setPlaceholder('Devlet, TBMM, 06420 Çankaya/Ankara')
+			.setPlaceholder('06420 Çankaya/Ankara')
 			.setStyle(TextInputStyle.Paragraph)
 			.setMinLength(15)
 			.setMaxLength(400)
@@ -68,8 +65,7 @@ client.on(Events.InteractionCreate, interaction => {
       return;
     }
 
-
-    // APİYE BİLGİLERİ BURADAN GÖNDEREBİLİRSİNİZ
+    // TODO: APİYE BİLGİLERİ BURADAN GÖNDERECEĞİZ
 
 
     if(timeouts.find(element => element[0] == interaction.user.id) && !timeouts.find(element => element[1].timeoutEnded)) {
@@ -77,7 +73,7 @@ client.on(Events.InteractionCreate, interaction => {
     }
 
     else {
-      interaction.reply({ content: 'Adres Paylaşım talebiniz alınmıştır yetkililerimiz en kısa sürede doğruluğunu kontrol edecektir', ephemeral: true });
+      interaction.reply({ content: 'Adres Paylaşım talebiniz alınmıştır.', ephemeral: true });
       try {
         timeouts = timeouts.filter(element => element[0] != interaction.user.id)
       }catch {
@@ -86,8 +82,6 @@ client.on(Events.InteractionCreate, interaction => {
 
     }
     
-    
-
     const row = new ActionRowBuilder()
     .addComponents(
       new ButtonBuilder()
@@ -117,20 +111,11 @@ client.on(Events.InteractionCreate, interaction => {
 
       `)
       
-      
-      
-      
     let user_id = interaction.user.id //getting user id that filled form
-      
     const guild_id = interaction.guildId; // guild id
     const server = client.guilds.cache.get(guild_id); //getting guild
-
-
     const server_channel = server.channels.cache.find(c => c.name == channel_name); // getting server_channel
-    
     client.channels.cache.get(server_channel.id).send({ embeds: [menu], components: [row] }); // sending message to server_channel
-
-
     //ban and timeout buttons interactions
     
     const filter = i => i.customId.startsWith(`paylasimci-engelle`) || i.customId.startsWith(`paylasimci-banla`) 
