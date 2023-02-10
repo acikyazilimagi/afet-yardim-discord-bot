@@ -1,9 +1,11 @@
 require("dotenv").config();
+const express = require('express');
+const app = express();
 const { ButtonBuilder, ButtonStyle, MessageActionRow, ActionRowBuilder, Events, ModalBuilder, TextInputBuilder, TextInputStyle, Client, EmbedBuilder, Intents, Collection, GatewayIntentBits, Partials, MessageAttachment, MessageEmbed, Permissions, Constants, ApplicationCommandPermissionsManager, time } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages], partials: [Partials.Channel] });
 const message = require("./events/message");
 
-
+// DİSCORD BOT
 const channel_name = "deprem-yardim-log" //keyword
 let timeouts = []
 
@@ -153,5 +155,12 @@ client.on(Events.InteractionCreate, interaction => {
   }
 });
 
-
+// HEALTHCHECK
 client.login(process.env.TOKEN);
+
+app.use("/healthcheck", require('express-healthcheck')({
+    healthy: () => {
+    return { status: "healthy" }
+  }
+}));
+app.listen(80);
