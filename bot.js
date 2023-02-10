@@ -4,7 +4,7 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBit
 const message = require("./events/message");
 
 
-channel_name = "deprem-yardim-log" //keyword
+const channel_name = "deprem-yardim-log" //keyword
 let timeouts = []
 
 client.commands = new Collection();
