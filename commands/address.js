@@ -2,16 +2,13 @@ const {Discord,ButtonBuilder,EmbedBuilder,ButtonStyle,ActionRowBuilder,MessageAc
 
 module.exports = {
     start : async(client, message, args) => {
-		const row = new ActionRowBuilder().addComponents(
-			new ButtonBuilder()
-				.setCustomId('adres-paylas')
-				.setLabel('Adres Paylaş')
-				.setStyle(ButtonStyle.Primary),
-			new ButtonBuilder()
-				.setCustomId('nasil-paylasirim')
-				.setLabel('Nasıl Paylaşırım?')
-				.setStyle(ButtonStyle.Success)
-		);
+		const row = new ActionRowBuilder()
+			.addComponents(
+				new ButtonBuilder()
+                    .setCustomId('adres-paylas')
+					.setLabel('Adres Paylaş')
+					.setStyle(ButtonStyle.Primary),
+			);
 		const menu =  new EmbedBuilder()
         .setColor(0x0099FF)
         .setTitle('Adres Paylaşım')

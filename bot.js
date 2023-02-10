@@ -1,11 +1,8 @@
 require("dotenv").config();
-const { ButtonBuilder, ButtonStyle, MessageActionRow, ActionRowBuilder, Events, ModalBuilder, TextInputBuilder, TextInputStyle, Client, EmbedBuilder, Intents, Collection, GatewayIntentBits, Partials, MessageAttachment, MessageEmbed, Permissions, Constants, ApplicationCommandPermissionsManager, time } = require('discord.js');
+const { ButtonBuilder, ButtonStyle, MessageActionRow, ActionRowBuilder, Events, ModalBuilder, TextInputBuilder, TextInputStyle, Client, EmbedBuilder, Intents, Collection, GatewayIntentBits, Partials, MessageAttachment, MessageEmbed, Permissions, Constants, ApplicationCommandPermissionsManager } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages], partials: [Partials.Channel] });
 const message = require("./events/message");
 
-
-const channel_name = "deprem-yardim-log" //keyword
-let timeouts = []
 
 client.commands = new Collection();
 client.aliases = new Collection();
@@ -20,37 +17,42 @@ client.on("ready", () => {
 
 client.on(`interactionCreate`, (interaction) => {
 
-  if (interaction.customId == "nasil-paylasirim") {
-    const menu = new EmbedBuilder()
-      .setColor(0x0099FF)
-      .setDescription(`
-      BURAYA ÖNEMLİ BİR MESAJ GELECEK
-      `)
-    interaction.reply({ embeds: [menu] , ephemeral: true })
-  }
-
   if (interaction.customId == "adres-paylas") {
-    
-
 
 
     const modal = new ModalBuilder()
       .setCustomId('adres-paylasim-modal')
       .setTitle('Deprem Adres Paylaş');
+    const isimsoyisim = new TextInputBuilder()
+      .setCustomId('deprem-isim-soyisim')
+      .setLabel("İsim Soyisim bilgisini giriniz")
+      .setStyle(TextInputStyle.Short)
+      .setMinLength(1)
+      .setMaxLength(100)
+      .setRequired(false);
+
+    const numara = new TextInputBuilder()
+      .setCustomId('deprem-numara')
+      .setLabel("Numara bilgisi giriniz")
+      .setStyle(TextInputStyle.Short)
+      .setMinLength(10)
+      .setMaxLength(11)
+      .setRequired(false);
 
     const adresbilgi = new TextInputBuilder()
-			.setCustomId('deprem-adresi')
-			.setLabel('Adres Bilgisi')
-			.setPlaceholder('Devlet, TBMM, 06420 Çankaya/Ankara')
-			.setStyle(TextInputStyle.Paragraph)
-			.setMinLength(15)
-			.setMaxLength(400)
-			.setRequired(true);
+      .setCustomId('deprem-adresi')
+      .setLabel("Adres Bilgisini buraya yazınız.")
+      .setPlaceholder('Adres Bilgisini buraya yazınız.')
+      .setStyle(TextInputStyle.Paragraph)
+      .setMinLength(1)
+      .setMaxLength(1000)
+      .setRequired(true);
 
-    const modal_1 = new ActionRowBuilder().addComponents(adresbilgi);
+    const modal_1 = new ActionRowBuilder().addComponents(isimsoyisim);
+    const modal_2 = new ActionRowBuilder().addComponents(numara);
+    const modal_3 = new ActionRowBuilder().addComponents(adresbilgi);
 
-
-    modal.addComponents(modal_1);
+    modal.addComponents(modal_1, modal_2, modal_3);
 
     interaction.showModal(modal);
   }
@@ -61,9 +63,20 @@ client.on(Events.InteractionCreate, interaction => {
   if (!interaction.isModalSubmit()) return;
   if (interaction.customId == "adres-paylasim-modal") {
 
+    const isim_soyisim = interaction.fields.getTextInputValue('deprem-isim-soyisim');
+    const numara = interaction.fields.getTextInputValue('deprem-numara');
     const adres = interaction.fields.getTextInputValue('deprem-adresi');
 
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    var date = new Date();
+    var timestamp = Math.floor(date.getTime() / 1000) + getRandomInt(1, 1000);
+
     if(!adres){
+
       interaction.reply({ content: 'Adres boş olamaz', ephemeral: true });
       return;
     }
@@ -72,21 +85,7 @@ client.on(Events.InteractionCreate, interaction => {
     // APİYE BİLGİLERİ BURADAN GÖNDEREBİLİRSİNİZ
 
 
-    if(timeouts.find(element => element[0] == interaction.user.id) && !timeouts.find(element => element[1].timeoutEnded)) {
-      return interaction.reply({ content: 'Geçiçi olarak engellendiniz', ephemeral: true })
-    }
-
-    else {
-      interaction.reply({ content: 'Adres Paylaşım talebiniz alınmıştır yetkililerimiz en kısa sürede doğruluğunu kontrol edecektir', ephemeral: true });
-      try {
-        timeouts = timeouts.filter(element => element[0] != interaction.user.id)
-      }catch {
-        
-      }
-
-    }
-    
-    
+    interaction.reply({ content: 'Adres Paylaşım talebiniz alınmıştır yetkililerimiz en kısa sürede doğruluğunu kontrol edecektir', ephemeral: true });
 
     const row = new ActionRowBuilder()
     .addComponents(
@@ -108,6 +107,8 @@ client.on(Events.InteractionCreate, interaction => {
       .setAuthor({ name: 'Adres Paylaş Yönet', iconURL: 'https://i.imgur.com/AfFp7pu.png', url: 'https://discord.gg/itdepremyardim' })
       .setDescription(`
       
+      İsim Soyisim: **${isim_soyisim ? isim_soyisim : "Değer Boş"}**
+      Numara: **${numara ? numara : "Değer Boş"}**
       Adres; 
       **${adres ? adres : "Değer Boş"}**
 
@@ -116,55 +117,7 @@ client.on(Events.InteractionCreate, interaction => {
       Paylaşımın yapıldığı sunucu adı: **${interaction.guild.name}**
 
       `)
-      
-      
-      
-      
-    let user_id = interaction.user.id //getting user id that filled form
-      
-    const guild_id = interaction.guildId; // guild id
-    const server = client.guilds.cache.get(guild_id); //getting guild
-
-
-    const server_channel = server.channels.cache.find(c => c.name == channel_name); // getting server_channel
-    
-    client.channels.cache.get(server_channel.id).send({ embeds: [menu], components: [row] }); // sending message to server_channel
-
-
-    //ban and timeout buttons interactions
-    
-    const filter = i => i.customId.startsWith(`paylasimci-engelle`) || i.customId.startsWith(`paylasimci-banla`) 
-  
-    const collector = server_channel.createMessageComponentCollector({ filter, time: 864000000 });
-
-    collector.once('collect', async i => {
-
-      if (i.customId.startsWith('paylasimci-engelle-')) {
-        //await i.reply(`interaction: ${user_id}, buton: ${i.user.id}`)
-        await i.reply("User has been timeouted for 10 minutes")
-
-        const Timeout = {
-          timeoutEnded: false,
-          timeout: null,
-        };
-
-        Timeout.timeout = setTimeout(() => {
-          Timeout.timeoutEnded = true;
-        }, 30*1000);
-        timeouts.push([user_id,Timeout]) 
-        
-      }
-      if ((i.customId.startsWith('paylasimci-banla-'))) {
-        let member = await server_channel.guild.members.fetch(user_id);
-        member.ban({ reason: 'Banned' });
-        await i.reply(`User with id ${user_id} has been banned.`)
-        
-      }
-
-
-    })
-    
-
+    client.channels.cache.get("1072881004013948928").send({ embeds: [menu], components: [row] });
   }
 });
 
