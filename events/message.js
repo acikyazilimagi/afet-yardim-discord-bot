@@ -3,8 +3,6 @@ const { EmbedBuilder } = require("discord.js");
 module.exports = async(message) => {
 
       let client = message.client;
-      let channel_name = "deprem-yardim" //keyword of channel name
-        if (message.channel.name != channel_name ) return;
 
         if (message.author.bot) return;
          

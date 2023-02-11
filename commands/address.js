@@ -1,7 +1,9 @@
 const {Discord,ButtonBuilder,EmbedBuilder,ButtonStyle,ActionRowBuilder,MessageActionRow} = require("discord.js");
 
 module.exports = {
-    start : async(client, message, args) => {
+	start: async (client, message, args) => {
+		if (channel.name != 'adres-bildir') return;
+		
 		const row = new ActionRowBuilder().addComponents(
 			new ButtonBuilder()
 				.setCustomId('adres-paylas')

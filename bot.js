@@ -7,7 +7,7 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBit
 const message = require("./events/message");
 
 // DİSCORD BOT
-const channel_name = "deprem-yardim-log" //keyword
+const channel_name = 'adres-bildir-log'; //keyword
 let timeouts = []
 
 client.commands = new Collection();
