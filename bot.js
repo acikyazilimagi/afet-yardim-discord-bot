@@ -122,7 +122,7 @@ Paylaşımın yapıldığı sunucu adı: **${interaction.guild.name}**
         'feeds': [
           {
             "raw_text": adres,
-            "channel": "Discord",
+            "channel": "discord",
             "extra-parameters": {
       user_id: interaction.user.id,
       channel_id: interaction.channelId,
@@ -137,12 +137,12 @@ Paylaşımın yapıldığı sunucu adı: **${interaction.guild.name}**
         ]
     }
 
-    const Url = `${process.env.BACKEND_GO_API_URL}/events`;        
+    const Url = `http://localhost:3001/events`;        
     const options = {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
-        "X-Api-Key": process.env.BACKEND_GO_API_KEY
+        "x-api-key": process.env.BACKEND_GO_API_KEY
       },
       data: JSON.stringify(response),
       url: Url,
@@ -166,7 +166,7 @@ Paylaşımın yapıldığı sunucu adı: **${interaction.guild.name}**
 
       if (i.customId.startsWith('paylasimci-engelle-')) {
         //await i.reply(`interaction: ${user_id}, buton: ${i.user.id}`)
-        await i.reply("User has been timeouted for 10 minutes")
+        await i.reply("User has been timeouted for 30 seconds")
 
         const Timeout = {
           timeoutEnded: false,
