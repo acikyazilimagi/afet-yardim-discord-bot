@@ -27,7 +27,7 @@ client.on(`interactionCreate`, (interaction) => {
     const menu = new EmbedBuilder()
     .setColor(0x0099FF)
     .setDescription(`
-BURAYA ÖNEMLİ BİR MESAJ GELECEK
+  "Mesajınızı yazarken, ihtiyacı olan insanların neye ihtiyacı olduğu ve lokasyon olarak nerede bulunduğunu detaylı bir şekilde yazmanız çok önemli. Lütfen 'Hatay' diyip bırakmayınız. Olabildiğince açıklayınız. Lütfen bilgilerini teyit etmeye çalışınız, bilginin doğruluğu en önemli şey bizim için"
 `)
     interaction.reply({ embeds: [menu] , ephemeral: true })
   }
