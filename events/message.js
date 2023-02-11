@@ -3,7 +3,11 @@ const { EmbedBuilder } = require("discord.js");
 module.exports = async(message) => {
 
       let client = message.client;
-        if (message.author.bot) return; 
+      let channel_name = "deprem-yardim" //keyword of channel name
+        if (message.channel.name != channel_name ) return;
+
+        if (message.author.bot) return;
+         
         if (!message.guild) return message.reply("Komutlarım sadece sunucularda kullanılabilir.")
       
         const args = message.content.slice(2).trim().split(/ +/g); 
