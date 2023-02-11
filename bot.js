@@ -148,16 +148,12 @@ Paylaşımın yapıldığı sunucu adı: **${interaction.guild.name}**
       url: Url,
     };
 
-    try {
-
-      axios(options).then(async function (response) {
-        console.log(1);
-      });
-
-    } catch (err) {
-      console.log(err);
-    }
-
+    axios(options).then(async function (response) {
+      console.log(1);
+    }).catch(err => {
+      console.log(err.response.status)
+    })
+    
     const filter = i => i.customId.startsWith(`paylasimci-engelle`) || i.customId.startsWith(`paylasimci-banla`) 
 
     const collector = server_channel.createMessageComponentCollector({ filter, time: 864000000 });
@@ -191,6 +187,7 @@ Paylaşımın yapıldığı sunucu adı: **${interaction.guild.name}**
 
   }
 });
+
 // HEALTHCHECK
 client.login(process.env.TOKEN);
 
