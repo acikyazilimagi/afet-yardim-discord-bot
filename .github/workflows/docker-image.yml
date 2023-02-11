@@ -1,4 +1,4 @@
-name: Deploy EczaneFront
+name: Deploy YardimDiscordBot
 
 on:
   push:
