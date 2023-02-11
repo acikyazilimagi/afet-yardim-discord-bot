@@ -1,63 +1,22 @@
 require("dotenv").config();
 const { ButtonBuilder, ButtonStyle, MessageActionRow, ActionRowBuilder, Events, ModalBuilder, TextInputBuilder, TextInputStyle, Client, EmbedBuilder, Intents, Collection, GatewayIntentBits, Partials, MessageAttachment, MessageEmbed, Permissions, Constants, ApplicationCommandPermissionsManager } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages], partials: [Partials.Channel] });
-const message = require("./events/message");
+const config = require("./config");
 
+// Handler:
+client.prefix_commands = new Collection();
+client.slash_commands = new Collection();
+client.user_commands = new Collection();
+client.message_commands = new Collection();
+client.modals = new Collection();
+client.events = new Collection();
 
-client.commands = new Collection();
-client.aliases = new Collection();
+module.exports = client;
 
-["command"].forEach(handler => {
-  require(`./commandstarter`)(client);
+["prefix", "app_commands", "modals", "events"].forEach((file) => {
+  require(`./handlers/${file}`)(client, config);
 });
 
-client.on("ready", () => {
-  require("./events/eventLoader")(client);
-});
-
-client.on(`interactionCreate`, (interaction) => {
-
-  if (interaction.customId == "adres-paylas") {
-
-
-    const modal = new ModalBuilder()
-      .setCustomId('adres-paylasim-modal')
-      .setTitle('Deprem Adres Paylaş');
-    const isimsoyisim = new TextInputBuilder()
-      .setCustomId('deprem-isim-soyisim')
-      .setLabel("İsim Soyisim bilgisini giriniz")
-      .setStyle(TextInputStyle.Short)
-      .setMinLength(1)
-      .setMaxLength(100)
-      .setRequired(false);
-
-    const numara = new TextInputBuilder()
-      .setCustomId('deprem-numara')
-      .setLabel("Numara bilgisi giriniz")
-      .setStyle(TextInputStyle.Short)
-      .setMinLength(10)
-      .setMaxLength(11)
-      .setRequired(false);
-
-    const adresbilgi = new TextInputBuilder()
-      .setCustomId('deprem-adresi')
-      .setLabel("Adres Bilgisini buraya yazınız.")
-      .setPlaceholder('Adres Bilgisini buraya yazınız.')
-      .setStyle(TextInputStyle.Paragraph)
-      .setMinLength(1)
-      .setMaxLength(1000)
-      .setRequired(true);
-
-    const modal_1 = new ActionRowBuilder().addComponents(isimsoyisim);
-    const modal_2 = new ActionRowBuilder().addComponents(numara);
-    const modal_3 = new ActionRowBuilder().addComponents(adresbilgi);
-
-    modal.addComponents(modal_1, modal_2, modal_3);
-
-    interaction.showModal(modal);
-  }
-
-})
 
 client.on(Events.InteractionCreate, interaction => {
   if (!interaction.isModalSubmit()) return;
@@ -81,7 +40,7 @@ client.on(Events.InteractionCreate, interaction => {
       return;
     }
 
-
+    console.log(isim_soyisim, numara, adres, timestamp)
     // APİYE BİLGİLERİ BURADAN GÖNDEREBİLİRSİNİZ
 
 
@@ -117,7 +76,7 @@ client.on(Events.InteractionCreate, interaction => {
       Paylaşımın yapıldığı sunucu adı: **${interaction.guild.name}**
 
       `)
-    client.channels.cache.get("1072881004013948928").send({ embeds: [menu], components: [row] });
+    client.channels.cache.get("1045694370713718874").send({ embeds: [menu], components: [row] });
   }
 });
 
