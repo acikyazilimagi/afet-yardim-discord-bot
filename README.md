@@ -6,8 +6,6 @@
 
 Botun amacı, IT Deprem sunucunda üretilen projeler ve saha ekiplerinin bilgi havuzlarını daha fazla besleyebilmek için discord üzerinden de bilgi alımı sağlamak.
 
-### Kullanım
-
 #### Kullanım
 Botu şimdilik bize gönderdiğiniz istekler sonucunda sunucunuza ekleyeceğiz(Yanlış bilgi vermeye çalışan veya sadece eğlence amacı güden gruplardan korumak amacıyla). Lütfen discord üzerinden Pride Ring 🌈#9972 adlı hesaba mesaj atınız. 
 
@@ -30,9 +28,30 @@ Botu kanala çağırdıktan sonra 2 tane tuş bulunuyor kullanabileceğiniz.
 
 diye bir mesaj çıkacaktır. Eğer bir çok kez hata yapmış veya kanalın amacını suistimal edip bilerek hatalı bilgi yollamaya başlarsanız belirli bir süreliğine adres gönderimi yapamayacaksınız. Eğer tutumunuz devam eder ise sunucuda bulunan yöneticiler sizi sunucudan yasaklayacaklardır. Eğer niyetiniz kötü olmadan birçok kez hata yaparak sonucunda yasaklanmışsanız, bu durumda lütfen bize dönüş yapmayın. Sunucu yöneticileriyle iletişime geçiniz.
 
+## Requirements
+
+* Docker
+* .env dosyasını oluşturunuz içerisine .env-example da yazılanları koyunuz.
+
+## Local Installment
+
+* Dockerfile build alınız
+
+```
+docker build -t afet-yardim-discord-bot .
+```
+
+* Container ı run ediniz
+
+```
+docker run -p 3000:3000 -d afet-yardim-discord-bot
+```
+
+* localhost:3000/healthcheck adresine gidebiliyorsanız proje ayakta demektir.
+
 
 ### Projeyi Desteklemek
-Projemiz açık kaynak kodlu bir projedir. Eğer bir hata görürseniz veya geliştirilme yapılmasını istiyorsanız "Issues" bölümünden bunu bize iletebilirsiniz. Eğer bir hatayı düzeltmek istiyorsanız veya yenilik eklemek istiyorsanız öncelikle kodu bilgisayarınıza kopyalamanız gerekiyor (Yakın zamanda docker ile hızlıca kurulum sağlamak için özellik eklenecektir). Bunun için sağ üst kısımdan "Fork" adında bir tuş bulunuyor. Buna basarak repository'i kendi hesabınıza ekleyin. Bundan sonra "Code" kısmına basarak seçeneklerden size uygun olanı seçenerek bilgisayarınıza yükleyin. Sonrasında değişiklikleri yaptıktan sonra kendi repository'inize kodu yolladıktan sonra ana projenin bulunduğu sayfadan "development" branchine bir pull request açınız. Biz değerlendirdikten sonra size döneceğiz.
+Projemiz açık kaynak kodlu bir projedir. Eğer bir hata görürseniz veya geliştirilme yapılmasını istiyorsanız "Issues" bölümünden bunu bize iletebilirsiniz. Eğer bir hatayı düzeltmek istiyorsanız veya yenilik eklemek istiyorsanız öncelikle kodu bilgisayarınıza kopyalamanız gerekiyor (Yakın zamanda docker ile hızlıca kurulum sağlamak için özellik eklenecektir). Bunun için sağ üst kısımdan "Fork" adında bir tuş bulunuyor. Buna basarak repository'i kendi hesabınıza ekleyin. Bundan sonra "Code" kısmına basarak seçeneklerden size uygun olanı seçenerek bilgisayarınıza yükleyin. Sonrasında değişiklikleri yaptıktan sonra kendi repository'inize kodu yolladıktan sonra ana projenin bulunduğu sayfadan "main" branchine bir pull request açınız. Biz değerlendirdikten sonra size döneceğiz.
 
 ## English
 
@@ -66,7 +85,29 @@ When bot arrived, going to have 2 button for interaction
 
 It's means content is send to use and validating for usage. If you try to abuse sytem or a troll user, moderators can disable "Share Addres" feature for user. If user'll keep that attitude, going to be ban. If thats happenes, don't try contact with us. Contact with moderators.
 
+## Requirements
+
+* Docker
+* Create .env file and copy content from .env-example
+
+## Local Installment
+
+* Build docker container with following command 
+
+```
+docker build -t afet-yardim-discord-bot .
+```
+
+* Run docker container with following command
+
+```
+docker run -p 3000:3000 -d afet-yardim-discord-bot
+```
+
+* If you are able to load localhost:3000/healthcheck url, good job project is running up.
+
+
 ### Contribution
 
-Project is open source. If there is a issue or wants to add feature to project, please open an issue from "Issues" tab. If wants to fix problem or add feature by itself, fork project to personal account repository. After that clone from "Code" section in repository to local repository. After that, make changes and push to personal account repository. Finally, open a Pull Request to development branch. We are going to review those changes. 
+Project is open source. If there is a issue or wants to add feature to project, please open an issue from "Issues" tab. If wants to fix problem or add feature by itself, fork project to personal account repository. After that clone from "Code" section in repository to local repository. After that, make changes and push to personal account repository. Finally, open a Pull Request to main branch. We are going to review those changes. 
 
