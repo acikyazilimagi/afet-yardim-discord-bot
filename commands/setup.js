@@ -11,6 +11,7 @@ const {
 module.exports = {
 	start: async (client, message, args) => {
 		const { guild } = message;
+
 		const botMember = guild.members.cache.get(client.user.id);
 
 		if (!botMember.permissions.has(PermissionsBitField.Flags.Administrator))
@@ -62,9 +63,7 @@ module.exports = {
 
 		message.channel.send(`${channel} adlı kanal bulundu, oluşturulmayacak.`);
 
-		let logChannel = guild.channels.cache.find(
-			(c) => c.name === 'adres-bildir-log'
-		);
+		let logChannel = guild.channels.cache.find((c) => c.name === 'adres-bildir-log');
 
 		if (!logChannel) {
 			await guild.channels.create({
