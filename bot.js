@@ -6,9 +6,6 @@ const { ButtonBuilder, ButtonStyle, MessageActionRow, ActionRowBuilder, Events, 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages], partials: [Partials.Channel] });
 const message = require("./events/message");
 
-console.log(process.env.BACKEND_GO_API_URL);
-
-
 // DİSCORD BOT
 const channel_name = 'adres-bildir-log'; //keyword
 let timeouts = []
