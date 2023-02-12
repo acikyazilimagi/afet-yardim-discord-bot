@@ -60,7 +60,7 @@ Translation to English:
 When bot arrived, going to have 2 button for interaction
 
 1. Nasıl Paylaşırım? = How Can Share? : When you click button, going appear a text bot with a information to inform user. Can get information about the system.
-2. Adres Paylaş = Share Addres : When you click button, going to pop-up a dialog text area for address input. Please write correct information for the person who need help and try to be descriptive. After that click "Submit" button to send information for our system. If bot'll send a text with content
+2. Adres Paylaş = Share Address : When you click button, going to pop-up a dialog text area for address input. Please write correct information for the person who need help and try to be descriptive. After that click "Submit" button to send information for our system. If bot'll send a text with content
 
 > Adres paylaşım talebiniz alınmıştır = Addres sharing request is accepted
 

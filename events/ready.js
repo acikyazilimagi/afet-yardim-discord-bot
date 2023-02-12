@@ -1,43 +1,33 @@
-module.exports = async(client) => {
-  
-  client.user.setStatus("online");
-  const aktiviteler = [
-    "Deprem Bilgi Paylaşım Botu",
-    "Lütfen sahte bilgi girişi yapmayınız.",
-    "d!yardım"
+const { Events } = require("discord.js");
+const { execute } = require("./message");
 
-  ]
-  setInterval(function() {
-    var random = Math.floor(Math.random() * (aktiviteler.length - 0 + 1) + 0);
+module.exports = {
+  name: Events.ClientReady,
+  async execute(client) {
+    client.user.setStatus("online");
+    const aktiviteler = [
+      "Deprem Bilgi Paylaşım Botu",
+      "Lütfen sahte bilgi girişi yapmayınız.",
+      "d!yardım"
 
-    client.user.setActivity(aktiviteler[random], "");
-  }, 2 * 2500);
-  
-  console.log("Ayarlamalar: Durum Ayarlandı!")
-  console.log("Ayarlamalar: Aktivite Ayarlandı!")
-  
-  console.log(" ")
+    ]
+    setInterval(function () {
+      var random = Math.floor(Math.random() * (aktiviteler.length - 0 + 1) + 0);
 
-  const kulsayi = []
-  client.guilds.cache.forEach((item, i) => {
-      kulsayi.push(item.memberCount)
-  });
-  var toplamkulsayi = 0
-  for (var i = 0; i < kulsayi.length; i++) {
-      if (isNaN(kulsayi[i])){
-          continue;
-      }
+      client.user.setActivity(aktiviteler[random], "");
+    }, 2 * 2500);
 
-      toplamkulsayi += Number(kulsayi[i])
+    console.log("Ayarlamalar: Durum Ayarlandı!")
+    console.log("Ayarlamalar: Aktivite Ayarlandı!\n")
+
+    const memberCount = client.guilds.cache.map((g) => g.memberCount).reduce((a, c) => a + c)
+
+    console.log("Bot İstatistiği")
+    console.log(`Sunucu Sayısı: ${client.guilds.cache.size}`)
+    console.log(`Kullanıcı Sayısı: ${memberCount}`)
+    console.log(`Kanal Sayısı: ${client.channels.cache.size}\n`)
+
+    console.log(`${client.user.tag} olarak Discord'a giriş yaptım. Artık kullanılmaya hazırım`);
   }
-
-  console.log("Bot İstatistiği")
-  console.log(`Sunucu Sayısı: ${client.guilds.cache.size}`)
-  console.log(`Kullanıcı Sayısı: ${toplamkulsayi}`)
-  console.log(`Kanal Sayısı: ${client.channels.cache.size}`)
-  console.log(" ")
-
-  console.log(`${client.user.tag} olarak Discord'a giriş yaptım. Artık kullanılmaya hazırım`);
-
 
 }
