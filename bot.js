@@ -27,7 +27,7 @@ client.on(`interactionCreate`, (interaction) => {
     const menu = new EmbedBuilder()
     .setColor(0x0099FF)
     .setDescription(`
-  "Mesajınızı yazarken, ihtiyacı olan insanların neye ihtiyacı olduğu ve lokasyon olarak nerede bulunduğunu detaylı bir şekilde yazmanız çok önemli. Lütfen 'Hatay' diyip bırakmayınız. Olabildiğince açıklayınız. Lütfen bilgilerini teyit etmeye çalışınız, bilginin doğruluğu en önemli şey bizim için"
+  "Mesajınızı yazarken, ihtiyacı olan insanların neye ihtiyacı olduğu ve lokasyon olarak nerede bulunduğunu detaylı bir şekilde yazmanız çok önemli. Lütfen 'Hatay' diyip bırakmayınız. Olabildiğince açıklayınız. Lütfen bilgilerini teyit etmeye çalışınız, bilginin doğruluğu en önemli şey bizim için. Formun içinde google maps link bölümü bulunuyor. Lütfen olabildiğince uğraşıp kişinin google maps üzerinden bulunduğu lokasyonun linkini alıp gönderiniz."
 `)
     interaction.reply({ embeds: [menu] , ephemeral: true })
   }
@@ -41,16 +41,23 @@ client.on(`interactionCreate`, (interaction) => {
     const adresbilgi = new TextInputBuilder()
     .setCustomId('deprem-adresi')
     .setLabel('Adres Bilgisi')
-    .setPlaceholder('Acilen bebek maması ihtiyacı var; General Şükrü Kanadli Mahallesi....')
+    .setPlaceholder('Acilen bebek maması ihtiyacı var, General Şükrü Kanadli Mahallesi....')
     .setStyle(TextInputStyle.Paragraph)
     .setMinLength(15)
     .setMaxLength(400)
     .setRequired(true);
 
+    const googleMapsInput = new TextInputBuilder()
+    .setCustomId('deprem-google-maps-url')
+    .setLabel('google maps link (lütfen araştırıp bulun)')
+    .setPlaceholder('https://goo.gl/maps/3jA1dDLsH9Kq3LEt6 (eğer elinizde yoksa opsiyonel)')
+    .setStyle(TextInputStyle.Short)
+    .setMinLength(30)
+    .setMaxLength(40)
+    .setRequired(false);
     const modal_1 = new ActionRowBuilder().addComponents(adresbilgi);
-
-
-    modal.addComponents(modal_1);
+    const model_2 = new ActionRowBuilder().addComponents(googleMapsInput);
+    modal.addComponents(modal_1, model_2);
 
     interaction.showModal(modal);
   }
@@ -62,6 +69,7 @@ client.on(Events.InteractionCreate, interaction => {
   if (interaction.customId == "adres-paylasim-modal") {
 
     const adres = interaction.fields.getTextInputValue('deprem-adresi');
+    const googleMapsURL = interaction.fields.getTextInputValue('deprem-google-maps-url');
 
     if(!adres){
       interaction.reply({ content: 'Adres boş olamaz', ephemeral: true });
@@ -105,6 +113,8 @@ client.on(Events.InteractionCreate, interaction => {
 Adres; 
 **${adres ? adres : "Değer Boş"}**
 
+Google Maps URL **${ googleMapsURL ? googleMapsURL : "Boş"}**
+
 Paylaşan: <@${interaction.user.id}>
 
 Paylaşımın yapıldığı sunucu adı: **${interaction.guild.name}**
@@ -130,7 +140,8 @@ Paylaşımın yapıldığı sunucu adı: **${interaction.guild.name}**
       discord_message_id: interaction.message.id,
       guild_id: interaction.guildId,
       guild_name: interaction.message.guild.name,
-     message_created_at: interaction.message.createdAt,
+      message_created_at: interaction.message.createdAt,
+      googleMapsURL: googleMapsURL
     },
           "epoch": Date.now()
             }      
@@ -148,7 +159,7 @@ Paylaşımın yapıldığı sunucu adı: **${interaction.guild.name}**
       url: Url,
     };
 
-    axios(options).then(async function (response) {
+     axios(options).then(async function (response) {
       console.log(1);
     }).catch(err => {
       console.log(err.response.status)
@@ -184,7 +195,6 @@ Paylaşımın yapıldığı sunucu adı: **${interaction.guild.name}**
 
 
     })
-
   }
 });
 
