@@ -2,9 +2,8 @@ module.exports = async(client) => {
   
   client.user.setStatus("online");
   const aktiviteler = [
-    "Deprem Bilgi Paylaşım Botu",
+    "Deprem bilgi Paylaşım Botu",
     "Lütfen sahte bilgi girişi yapmayınız.",
-    "d!yardım"
 
   ]
   setInterval(function() {
