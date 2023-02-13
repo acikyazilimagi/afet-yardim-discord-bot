@@ -32,7 +32,7 @@ diye bir mesaj çıkacaktır. Eğer bir çok kez hata yapmış veya kanalın ama
 
 
 ### Projeyi Desteklemek
-Projemiz açık kaynak kodlu bir projedir. Eğer bir hata görürseniz veya geliştirilme yapılmasını istiyorsanız "Issues" bölümünden bunu bize iletebilirsiniz. Eğer bir hatayı düzeltmek istiyorsanız veya yenilik eklemek istiyorsanız öncelikle kodu bilgisayarınıza kopyalamanız gerekiyor (Yakın zamanda docker ile hızlıca kurulum sağlamak için özellik eklenecektir). Bunun için sağ üst kısımdan "Fork" adında bir tuş bulunuyor. Buna basarak repository'i kendi hesabınıza ekleyin. Bundan sonra "Code" kısmına basarak seçeneklerden size uygun olanı seçenerek bilgisayarınıza yükleyin. Sonrasında değişiklikleri yaptıktan sonra kendi repository'inize kodu yolladıktan sonra ana projenin bulunduğu sayfadan "development" branchine bir pull request açınız. Biz değerlendirdikten sonra size döneceğiz.
+Projemiz açık kaynak kodlu bir projedir. Eğer bir hata görürseniz veya geliştirilme yapılmasını istiyorsanız "Issues" bölümünden bunu bize iletebilirsiniz. Eğer bir hatayı düzeltmek istiyorsanız veya yenilik eklemek istiyorsanız öncelikle kodu bilgisayarınıza kopyalamanız gerekiyor (Yakın zamanda docker ile hızlıca kurulum sağlamak için özellik eklenecektir). Bunun için sağ üst kısımdan "Fork" adında bir tuş bulunuyor. Buna basarak repository'i kendi hesabınıza ekleyin. Bundan sonra "Code" kısmına basarak seçeneklerden size uygun olanı seçenerek bilgisayarınıza yükleyin. Sonrasında değişiklikleri yaptıktan sonra kendi repository'inize kodu yolladıktan sonra ana projenin bulunduğu sayfadan "main" branchine bir pull request açınız. Biz değerlendirdikten sonra size döneceğiz.
 
 ## English
 
@@ -68,5 +68,5 @@ It's means content is send to use and validating for usage. If you try to abuse 
 
 ### Contribution
 
-Project is open source. If there is a issue or wants to add feature to project, please open an issue from "Issues" tab. If wants to fix problem or add feature by itself, fork project to personal account repository. After that clone from "Code" section in repository to local repository. After that, make changes and push to personal account repository. Finally, open a Pull Request to development branch. We are going to review those changes. 
+Project is open source. If there is a issue or wants to add feature to project, please open an issue from "Issues" tab. If wants to fix problem or add feature by itself, fork project to personal account repository. After that clone from "Code" section in repository to local repository. After that, make changes and push to personal account repository. Finally, open a Pull Request to "main" branch. We are going to review those changes. 
 
