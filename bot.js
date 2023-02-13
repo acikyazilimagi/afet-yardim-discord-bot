@@ -41,7 +41,7 @@ client.on(`interactionCreate`, (interaction) => {
     const adresbilgi = new TextInputBuilder()
     .setCustomId('deprem-adresi')
     .setLabel('Adres Bilgisi')
-    .setPlaceholder('06420 Çankaya/Ankara')
+    .setPlaceholder('Acilen bebek maması ihtiyacı var; General Şükrü Kanadli Mahallesi....')
     .setStyle(TextInputStyle.Paragraph)
     .setMinLength(15)
     .setMaxLength(400)
