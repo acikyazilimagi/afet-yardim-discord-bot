@@ -29,13 +29,12 @@ const eventsService = async (address, extraParameters) => {
   };
   try {
     const response = await axios(options);
-    console.log(1)
     if (response.status === HttpStatusCode.Ok) {
       console.log("posted")
     }
 
   } catch (error) {
-    console.log(error.response?.status||error)
+    console.log(error.response.status)
   }
 }
 
