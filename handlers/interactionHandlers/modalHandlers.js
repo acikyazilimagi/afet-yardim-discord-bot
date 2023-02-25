@@ -3,6 +3,7 @@ const { eventsService } = require('../../services/eventsService');
 const Channels = require('../../util/Channels');
 const Constants = require('../../util/Constants');
 const Modals = require('../../util/Modals');
+const TextInputs = require('../../util/TextInputs');
 let timeouts = []
 
 const modalSubmitHandler = async (interaction) => {
@@ -14,7 +15,8 @@ const modalSubmitHandler = async (interaction) => {
 const shareAddressModalHandler = async (interaction) => {
 
   const {client}=interaction
-  const adres = interaction.fields.getTextInputValue('deprem-adresi');
+  const adres = interaction.fields.getTextInputValue(TextInputs.EarthquakeAddress);
+  const googleMapsURL = interaction.fields.getTextInputValue(TextInputs.GoogleMapsLocationUrl);
 
   if (!adres) {
     return interaction.reply({ content: 'Adres boş olamaz', ephemeral: true });   
@@ -57,6 +59,8 @@ const shareAddressModalHandler = async (interaction) => {
 Adres; 
 **${adres ? adres : "Değer Boş"}**
 
+Google Maps URL **${ googleMapsURL ? googleMapsURL : "Boş"}**
+
 Paylaşan: <@${interaction.user.id}>
 
 Paylaşımın yapıldığı sunucu adı: **${interaction.guild.name}**
@@ -77,6 +81,7 @@ Paylaşımın yapıldığı sunucu adı: **${interaction.guild.name}**
     guild_id: interaction.guildId,
     guild_name: interaction.message.guild.name,
     message_created_at: interaction.message.createdAt,
+    googleMapsURL: googleMapsURL
   }
 
   //response from service can be handled here

@@ -40,11 +40,19 @@ diye bir mesaj çıkacaktır. Eğer bir çok kez hata yapmış veya kanalın ama
 ```
 docker build -t afet-yardim-discord-bot .
 ```
+VEYA
+```
+npm run docker-build
+```
 
-* Container ı run ediniz
+* Run docker container with following command
 
 ```
 docker run -p 3000:3000 -d afet-yardim-discord-bot
+```
+VEYA
+```
+npm run docker
 ```
 
 * localhost:3000/healthcheck adresine gidebiliyorsanız proje ayakta demektir.
@@ -97,11 +105,19 @@ It's means content is send to use and validating for usage. If you try to abuse 
 ```
 docker build -t afet-yardim-discord-bot .
 ```
+OR
+```
+npm run docker-build
+```
 
 * Run docker container with following command
 
 ```
 docker run -p 3000:3000 -d afet-yardim-discord-bot
+```
+OR
+```
+npm run docker
 ```
 
 * If you are able to load localhost:3000/healthcheck url, good job project is running up.
@@ -109,5 +125,5 @@ docker run -p 3000:3000 -d afet-yardim-discord-bot
 
 ### Contribution
 
-Project is open source. If there is a issue or wants to add feature to project, please open an issue from "Issues" tab. If wants to fix problem or add feature by itself, fork project to personal account repository. After that clone from "Code" section in repository to local repository. After that, make changes and push to personal account repository. Finally, open a Pull Request to main branch. We are going to review those changes. 
+Project is open source. If there is a issue or wants to add feature to project, please open an issue from "Issues" tab. If wants to fix problem or add feature by itself, fork project to personal account repository. After that clone from "Code" section in repository to local repository. After that, make changes and push to personal account repository. Finally, open a Pull Request to "main" branch. We are going to review those changes. 
 

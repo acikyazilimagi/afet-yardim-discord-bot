@@ -7,8 +7,7 @@ module.exports = {
     client.user.setStatus("online");
     const aktiviteler = [
       "Deprem Bilgi Paylaşım Botu",
-      "Lütfen sahte bilgi girişi yapmayınız.",
-      "d!yardım"
+      "Lütfen sahte bilgi girişi yapmayınız."
 
     ]
     setInterval(function () {

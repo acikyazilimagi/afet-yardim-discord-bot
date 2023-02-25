@@ -1,5 +1,5 @@
 /**
- * Channel name constants.
+ * Channel id constants.
  * It could be deprecated if guild settings stores in a database.
  */
 module.exports = {

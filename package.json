@@ -5,7 +5,9 @@
   "main": "bot.js",
   "scripts": {
     "start": "node bot.js",
-    "dev": "nodemon bot.js"
+    "dev": "nodemon bot.js",
+    "docker-build":"docker build -t afet-yardim-discord-bot .",
+    "docker":"docker run -p 3000:3000 -d afet-yardim-discord-bot"
   },
   "author": "acikkaynak",
   "license": "Apache-2.0 License",

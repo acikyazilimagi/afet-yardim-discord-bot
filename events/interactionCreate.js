@@ -3,11 +3,15 @@ const { buttonHandler } = require("../handlers/interactionHandlers/buttonHandler
 const { modalSubmitHandler } = require("../handlers/interactionHandlers/modalHandlers");
 
 module.exports = {
-    name:Events.InteractionCreate,
-    async execute(interaction){
+    name: Events.InteractionCreate,
+    async execute(interaction) {
+        try {
+            await buttonHandler(interaction);
+            await modalSubmitHandler(interaction);
+        } catch (error) {
+            console.error(error);
+        }
 
-        await buttonHandler(interaction);
-        await modalSubmitHandler(interaction);
 
 
     }

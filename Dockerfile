@@ -1,12 +1,17 @@
-FROM node:18
+FROM node:18-alpine
+
+RUN apk add --no-cache bash tini
 
 WORKDIR /usr/src/app
 
 COPY package*.json ./
 
 RUN npm install
+
 COPY . .
 
-# for healthcheck
 EXPOSE 80
-CMD [ "node", "bot.js" ]
+
+ENTRYPOINT ["/sbin/tini", "--"]
+
+CMD ["node", "bot.js"]
