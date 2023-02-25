@@ -6,8 +6,6 @@
 
 Botun amacı, IT Deprem sunucunda üretilen projeler ve saha ekiplerinin bilgi havuzlarını daha fazla besleyebilmek için discord üzerinden de bilgi alımı sağlamak.
 
-### Kullanım
-
 #### Kullanım
 Botu şimdilik bize gönderdiğiniz istekler sonucunda sunucunuza ekleyeceğiz(Yanlış bilgi vermeye çalışan veya sadece eğlence amacı güden gruplardan korumak amacıyla). Lütfen discord üzerinden Pride Ring 🌈#9972 adlı hesaba mesaj atınız. 
 
@@ -29,6 +27,35 @@ Botu kanala çağırdıktan sonra 2 tane tuş bulunuyor kullanabileceğiniz.
 > Adres paylaşım talebiniz alınmıştır
 
 diye bir mesaj çıkacaktır. Eğer bir çok kez hata yapmış veya kanalın amacını suistimal edip bilerek hatalı bilgi yollamaya başlarsanız belirli bir süreliğine adres gönderimi yapamayacaksınız. Eğer tutumunuz devam eder ise sunucuda bulunan yöneticiler sizi sunucudan yasaklayacaklardır. Eğer niyetiniz kötü olmadan birçok kez hata yaparak sonucunda yasaklanmışsanız, bu durumda lütfen bize dönüş yapmayın. Sunucu yöneticileriyle iletişime geçiniz.
+
+## Requirements
+
+* Docker
+* .env dosyasını oluşturunuz içerisine .env-example da yazılanları koyunuz.
+
+## Local Installment
+
+* Dockerfile build alınız
+
+```
+docker build -t afet-yardim-discord-bot .
+```
+VEYA
+```
+npm run docker-build
+```
+
+* Run docker container with following command
+
+```
+docker run -p 3000:3000 -d afet-yardim-discord-bot
+```
+VEYA
+```
+npm run docker
+```
+
+* localhost:3000/healthcheck adresine gidebiliyorsanız proje ayakta demektir.
 
 
 ### Projeyi Desteklemek
@@ -60,11 +87,41 @@ Translation to English:
 When bot arrived, going to have 2 button for interaction
 
 1. Nasıl Paylaşırım? = How Can Share? : When you click button, going appear a text bot with a information to inform user. Can get information about the system.
-2. Adres Paylaş = Share Addres : When you click button, going to pop-up a dialog text area for address input. Please write correct information for the person who need help and try to be descriptive. After that click "Submit" button to send information for our system. If bot'll send a text with content
+2. Adres Paylaş = Share Address : When you click button, going to pop-up a dialog text area for address input. Please write correct information for the person who need help and try to be descriptive. After that click "Submit" button to send information for our system. If bot'll send a text with content
 
 > Adres paylaşım talebiniz alınmıştır = Addres sharing request is accepted
 
 It's means content is send to use and validating for usage. If you try to abuse sytem or a troll user, moderators can disable "Share Addres" feature for user. If user'll keep that attitude, going to be ban. If thats happenes, don't try contact with us. Contact with moderators.
+
+## Requirements
+
+* Docker
+* Create .env file and copy content from .env-example
+
+## Local Installment
+
+* Build docker container with following command 
+
+```
+docker build -t afet-yardim-discord-bot .
+```
+OR
+```
+npm run docker-build
+```
+
+* Run docker container with following command
+
+```
+docker run -p 3000:3000 -d afet-yardim-discord-bot
+```
+OR
+```
+npm run docker
+```
+
+* If you are able to load localhost:3000/healthcheck url, good job project is running up.
+
 
 ### Contribution
 
