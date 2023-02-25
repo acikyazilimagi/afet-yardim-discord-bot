@@ -5,7 +5,7 @@ const {
 	ActionRowBuilder,
 	PermissionsBitField
 } = require('discord.js');
-const { Buttons } = require('../handlers/interactionHandlers/buttonHandlers');
+const Buttons = require('../util/Buttons');
 const Channels = require('../util/Channels');
 const Constants = require('../util/Constants');
 
@@ -16,7 +16,6 @@ module.exports = {
 			const botMember = await guild.members.fetch(client.user.id);
 			if (!botMember.permissions.has(PermissionsBitField.Flags.Administrator))
 				return message.channel.send('Bu işlemi gerçekleştirebilmek için ADMINISTRATOR yetkisine ihtiyacım var.');
-
 
 			if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator))
 				return message.channel.send('Bu işlemi gerçekleştirebilmek için ADMINISTRATOR yetkisine ihtiyacın var.');;

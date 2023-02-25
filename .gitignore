@@ -1,6 +1,4 @@
 node_modules
-
-
 # Remove enviroment files except template
 *.env
 !.env.template
