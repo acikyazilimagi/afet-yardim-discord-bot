@@ -1,11 +1,3 @@
-<<<<<<<<< Temporary merge branch 1
-module.exports = async(client) => {
-  
-  client.user.setStatus("online");
-  const aktiviteler = [
-    "Deprem bilgi Paylaşım Botu",
-    "Lütfen sahte bilgi girişi yapmayınız.",
-=========
 const { Events } = require("discord.js");
 const { execute } = require("./message");
 

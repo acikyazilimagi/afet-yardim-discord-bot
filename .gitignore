@@ -1,11 +1,4 @@
 node_modules
-<<<<<<< HEAD
-package-lock.json
-
-=======
-
-
->>>>>>> d67771a47d3c864f5af3dd0974955c201e196ac2
 # Remove enviroment files except template
 *.env
 !.env.template
