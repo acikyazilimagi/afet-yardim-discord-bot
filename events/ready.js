@@ -1,3 +1,4 @@
+
 const { Events } = require("discord.js");
 const { execute } = require("./message");
 
@@ -12,6 +13,7 @@ module.exports = {
     ]
     setInterval(function () {
       var random = Math.floor(Math.random() * (aktiviteler.length - 0 + 1) + 0);
+
 
       client.user.setActivity(aktiviteler[random], "");
     }, 2 * 2500);

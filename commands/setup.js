@@ -17,6 +17,7 @@ module.exports = {
 			if (!botMember.permissions.has(PermissionsBitField.Flags.Administrator))
 				return message.channel.send('Bu işlemi gerçekleştirebilmek için ADMINISTRATOR yetkisine ihtiyacım var.');
 
+
 			if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator))
 				return message.channel.send('Bu işlemi gerçekleştirebilmek için ADMINISTRATOR yetkisine ihtiyacın var.');;
 
@@ -65,6 +66,7 @@ module.exports = {
 				(c) => c.name === Channels.AddressReportLogChannelName
 			);
 
+
 			if (!logChannel) {
 				await guild.channels.create({
 					name: Channels.AddressReportLogChannelName,
@@ -77,6 +79,7 @@ module.exports = {
 					],
 				});
 			}
+
 
 			message.channel.send(`${logChannel} adlı kanal bulundu, yeni bir kanal oluşturulmayacak.`);
 
