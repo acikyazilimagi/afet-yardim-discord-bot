@@ -5,7 +5,7 @@ const {
 	ActionRowBuilder,
 	PermissionsBitField
 } = require('discord.js');
-const { Buttons } = require('../handlers/interactionHandlers/buttonHandlers');
+const Buttons = require('../util/Buttons');
 const Channels = require('../util/Channels');
 const Constants = require('../util/Constants');
 
