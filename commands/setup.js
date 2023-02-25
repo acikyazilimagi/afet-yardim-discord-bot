@@ -1,89 +1,97 @@
 const {
-	Discord,
 	ButtonBuilder,
 	EmbedBuilder,
 	ButtonStyle,
 	ActionRowBuilder,
-	MessageActionRow,
-	PermissionsBitField,
+	PermissionsBitField
 } = require('discord.js');
+const { Buttons } = require('../handlers/interactionHandlers/buttonHandlers');
+const Channels = require('../util/Channels');
+const Constants = require('../util/Constants');
 
 module.exports = {
 	start: async (client, message, args) => {
-		const { guild } = message;
+		try {
+			const { guild } = message;
+			const botMember = await guild.members.fetch(client.user.id);
+			if (!botMember.permissions.has(PermissionsBitField.Flags.Administrator))
+				return message.channel.send('Bu işlemi gerçekleştirebilmek için ADMINISTRATOR yetkisine ihtiyacım var.');
 
-		const botMember = guild.members.cache.get(client.user.id);
 
-		if (!botMember.permissions.has(PermissionsBitField.Flags.Administrator))
-			return message.channel.send('Bu işlemi gerçekleştirebilmek için ADMINISTRATOR yetkisine ihtiyacım var.');
-		
-		if (
-			!message.member.permissions.has(PermissionsBitField.Flags.Administrator)
-		)
-			return;
+			if (!message.member.permissions.has(PermissionsBitField.Flags.Administrator))
+				return message.channel.send('Bu işlemi gerçekleştirebilmek için ADMINISTRATOR yetkisine ihtiyacın var.');;
 
-		let channel = guild.channels.cache.find((c) => c.name === 'adres-bildir');
+			let channel = guild.channels.cache.find((c) => c.name === Channels.AddressReportChannelName);
 
-		if (!channel) {
-			channel = await guild.channels.create({
-				name: 'adres-bildir',
-				type: 0,
-				permissionOverwrites: [
-					{
-						id: guild.roles.everyone,
-						deny: [PermissionsBitField.Flags.SendMessages],
-						allow: [PermissionsBitField.Flags.ViewChannel],
-					},
-				],
-			});
+			if (!channel) {
+				channel = await guild.channels.create({
+					name: Channels.AddressReportChannelName,
+					type: 0,
+					permissionOverwrites: [
+						{
+							id: guild.roles.everyone,
+							deny: [PermissionsBitField.Flags.SendMessages],
+							allow: [PermissionsBitField.Flags.ViewChannel],
+						},
+					],
+				});
 
-			const row = new ActionRowBuilder().addComponents(
-				new ButtonBuilder()
-					.setCustomId('adres-paylas')
-					.setLabel('Adres Paylaş')
-					.setStyle(ButtonStyle.Primary),
-				new ButtonBuilder()
-					.setCustomId('nasil-paylasirim')
-					.setLabel('Nasıl Paylaşırım?')
-					.setStyle(ButtonStyle.Success)
+				const row = new ActionRowBuilder().addComponents(
+					new ButtonBuilder()
+						.setCustomId(Buttons.ShareAddress)
+						.setLabel('Adres Paylaş')
+						.setStyle(ButtonStyle.Primary),
+					new ButtonBuilder()
+						.setCustomId(Buttons.HowToShare)
+						.setLabel('Nasıl Paylaşırım?')
+						.setStyle(ButtonStyle.Success)
+				);
+				const menu = new EmbedBuilder()
+					.setColor(0x0099ff)
+					.setTitle('Adres Paylaşım')
+					.setURL(Constants.DISCORD_INVITE_LINK)
+					.setAuthor({
+						name: 'Adres Paylaş',
+						iconURL: client.user.displayAvatarURL({ format: 'webp' }),
+						url: Constants.DISCORD_INVITE_LINK,
+					})
+					.setDescription('Adres Paylaşmak için Butona tıkla');
+
+				channel.send({ embeds: [menu], components: [row] });
+			}
+
+			message.channel.send(`${channel} adlı kanal bulundu, yeni bir kanal oluşturulmayacak.`);
+
+			let logChannel = guild.channels.cache.find(
+				(c) => c.name === Channels.AddressReportLogChannelName
 			);
-			const menu = new EmbedBuilder()
-				.setColor(0x0099ff)
-				.setTitle('Adres Paylaşım')
-				.setURL('https://discord.gg/itdepremyardim')
-				.setAuthor({
-					name: 'Adres Paylaş',
-					iconURL: 'https://i.imgur.com/AfFp7pu.png',
-					url: 'https://discord.gg/itdepremyardim',
-				})
-				.setDescription('Adres Paylaşmak için Butona tıkla');
 
-			channel.send({ embeds: [menu], components: [row] });
+
+			if (!logChannel) {
+				await guild.channels.create({
+					name: Channels.AddressReportLogChannelName,
+					type: 0,
+					permissionOverwrites: [
+						{
+							id: guild.roles.everyone,
+							deny: [PermissionsBitField.Flags.ViewChannel],
+						},
+					],
+				});
+			}
+
+
+			message.channel.send(`${logChannel} adlı kanal bulundu, yeni bir kanal oluşturulmayacak.`);
+
+		} catch (error) {
+			console.error(error);
 		}
-
-		message.channel.send(`${channel} adlı kanal bulundu, oluşturulmayacak.`);
-
-		let logChannel = guild.channels.cache.find((c) => c.name === 'adres-bildir-log');
-
-		if (!logChannel) {
-			await guild.channels.create({
-				name: 'adres-bildir-log',
-				type: 0,
-				permissionOverwrites: [
-					{
-						id: guild.roles.everyone,
-						deny: [PermissionsBitField.Flags.ViewChannel],
-					},
-				],
-			});
-		}
-
-		message.channel.send(`${logChannel} adlı kanal bulundu, oluşturulmayacak.`);
 	},
 
 	name: 'setup',
 	description: '',
 	aliases: [],
-	kategori: '',
+	category: '',
 	usage: '',
+	isSlashCommand: false
 };
