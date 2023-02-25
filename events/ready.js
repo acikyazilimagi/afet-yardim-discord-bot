@@ -1,3 +1,11 @@
+<<<<<<<<< Temporary merge branch 1
+module.exports = async(client) => {
+  
+  client.user.setStatus("online");
+  const aktiviteler = [
+    "Deprem bilgi Paylaşım Botu",
+    "Lütfen sahte bilgi girişi yapmayınız.",
+=========
 const { Events } = require("discord.js");
 const { execute } = require("./message");
 
@@ -12,6 +20,7 @@ module.exports = {
     ]
     setInterval(function () {
       var random = Math.floor(Math.random() * (aktiviteler.length - 0 + 1) + 0);
+
 
       client.user.setActivity(aktiviteler[random], "");
     }, 2 * 2500);

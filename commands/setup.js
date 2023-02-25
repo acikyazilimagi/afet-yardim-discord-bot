@@ -65,6 +65,7 @@ module.exports = {
 				(c) => c.name === Channels.AddressReportLogChannelName
 			);
 
+
 			if (!logChannel) {
 				await guild.channels.create({
 					name: Channels.AddressReportLogChannelName,
@@ -77,6 +78,7 @@ module.exports = {
 					],
 				});
 			}
+
 
 			message.channel.send(`${logChannel} adlı kanal bulundu, yeni bir kanal oluşturulmayacak.`);
 
