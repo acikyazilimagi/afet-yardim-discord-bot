@@ -36,7 +36,6 @@ const setup = async () => {
     } else {
       table.addRow(file, command.name, `Hata -> ${file} komut dosyasına 'name' veya 'start' alanları eklenmemiş.`); 
     }
-
   }
   console.log(table.toString()); 
 

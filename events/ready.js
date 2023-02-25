@@ -1,4 +1,3 @@
-
 const { Events } = require("discord.js");
 const { execute } = require("./message");
 
